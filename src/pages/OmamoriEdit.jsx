@@ -10,12 +10,15 @@ import { frames } from '../api/omamoriExpansion.api';
 import OmamoriCanvas from '../components/omamori/OmamoriCanvas';
 import LayerPanel from '../components/omamori/LayerPanel';
 import { useModal } from '../components/hooks/useModal';
+import { omamoriImage, omamoriShare, omamoriUrlDel } from '../api/omamoriExport.api';
 
 export default function OmamoriEdit() {
     const navigate = useNavigate();
     const [content, setContent] = useState("내용을 입력하세요");
     const [selectedId, setSelectedId] = useState(null);
     const { openModal } = useModal(); 
+
+    const [imageUrl, setImageUrl] = useState(null);
 
     // 본문 상태
     const [editContent, setEditContent] = useState(false);
@@ -27,6 +30,10 @@ export default function OmamoriEdit() {
     // 오마모리 관리
     const [layers, setLayers] = useState([]);
     const [selectionType, setSelectionType] = useState(null);
+
+    // 공유 토큰, ID 저장
+    const [shareCode, setShareCode] = useState(null);
+    const [shareId, setShareId] = useState(null)
 
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -50,18 +57,29 @@ export default function OmamoriEdit() {
                 const parsedElements = (response.data.elements || []).map(el => ({
                     tempId: el.id,
                     type: el.type,
-                    url: el.preview_url, 
+                    url: el.stamp_url, 
                     content: el.props?.content,
                     fontSize: el.props?.fontSize ?? 20,
                     asset_key: el.props?.asset_key,
                     x: el.transform?.x ?? 0,
                     y: el.transform?.y ?? 0,
-                    zIndex: el.layer ?? 1
+                    zIndex: el.layer ?? 1,
+                    color : el.props?.color ?? "#111111"
                 }));
 
                 setLayers([initialFrame, ...parsedElements]);
 
                 setOmamoriData(response.data);
+
+                // 공유링크 저장
+                const saved = localStorage.getItem(`share_${id}`);
+
+                if (saved) {
+                    const parsed = JSON.parse(saved); 
+                    setShareCode(parsed.token);
+                    setShareId(parsed.shareId);
+                }
+                
             } catch (error) {
                 alert("오마모리를 불러올 수 없습니다. 마이페이지로 이동합니다.");
                 navigate('/mypage');
@@ -77,7 +95,6 @@ export default function OmamoriEdit() {
             // 백 요청
             const response = await updateOmamori(id, { meaning : content });
 
-            console.log(response);
         } catch (error) {
             alert("수정 중에 문제가 발생했습니다.");
         }
@@ -105,7 +122,7 @@ export default function OmamoriEdit() {
                     y: newText.y
                 }
                 });
-                console.log(response);
+
                 newText.tempId = response.data.id
                 setLayers(prev => [...prev, newText]);
         } catch (error) {
@@ -216,7 +233,7 @@ export default function OmamoriEdit() {
         );
 
         try {
-            await omamoriElementUpdate(id, tid, {props : { content: targetLayer.content, fontSize : size }});
+            await omamoriElementUpdate(id, tid, {props : { content: targetLayer.content, fontSize : size, color : targetLayer.color }});
         } catch(error) {
             console.log(error);
         }
@@ -224,18 +241,63 @@ export default function OmamoriEdit() {
 
     // 최종 저장 함수
     const handlePublish = async () => {
-    try {
-        const response = await omamoriSave(id);
-        alert("최종 저장 완료되었습니다.");
+        try {
+            await omamoriSave(id);
+            alert("최종 저장 완료되었습니다.");
 
-        console.log(response);
+            const res = await omamoriImage(id, {
+                "format": "png",
+                "dpi": 300,
+                "includeBack": true
+            });
+            setImageUrl(`http://localhost:8000${res.data.download_url}`);
 
-        // 여기에 이미지 저장 로직을 추가해주세요!
-        // ***
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-    } catch (error) {
-        console.error(error);
+    // 외부 공유API 호출
+    const handleShare = async() => {
+        try {
+            let code = shareCode;
+
+            // 공유 코드가 이미 생성되어 있다면 재사용
+            if (!code) {
+                const now = new Date();
+                const expiresAt = now.toISOString().split('.')[0];
+                const res = await omamoriShare(id, {option : "A", expires_at : expiresAt});
+
+                setShareCode(code);
+                setShareId(res.data.id);
+
+                const shareData = {
+                    token: res.data.token,
+                    shareId: res.data.id 
+                };
+
+                localStorage.setItem(`share_${id}`, JSON.stringify(shareData));
+            }
+        
+        openModal("omamoriShare", { shareCode : code, delete : handleCancelShare });
+        } catch(error) {
+            console.log(error);
+        }
     }
+
+    // 외부 공유링크 취소
+    const handleCancelShare = async () => {
+        try {
+            await omamoriUrlDel(shareId); 
+
+            setShareCode(null);
+            setShareId(null);
+
+            localStorage.removeItem(`share_${id}`);
+            console.log("됨");
+        } catch (error) {
+            console.error(error);
+        }
     };
 
   return (
@@ -249,6 +311,8 @@ export default function OmamoriEdit() {
         <div>
             {<OmamoriCanvas omamoriId={id} layers={layers} setLayers={setLayers} baseUrl={baseUrl} selectedId={selectedId} setSelectedId={setSelectedId} changeFontSize={changeFontSize}/>}
         </div>
+
+        {imageUrl ? (<img src={imageUrl} />) : (<p>X</p>)}
         
         <div>
             <form onSubmit={handleSubmit}>
@@ -281,7 +345,7 @@ export default function OmamoriEdit() {
         <div>
             <button type="button" onClick={handlePublish}>최종저장</button>
             <button type="button" onClick={() => openModal("backMessage", {layer : layers.find(l => l.type === "frame"), omamoriId : id, setLayers : setLayers})}>뒷면 메세지 입력하기</button>
-            <button type="button">공유</button>
+            <button type="button" onClick={handleShare}>공유</button>
         </div>
 
         {/* ===== UI 보드 ===== */}
