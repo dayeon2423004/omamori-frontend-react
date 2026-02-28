@@ -8,6 +8,7 @@ import OAuthSuccess from './pages/OAuthSuccess';
 import MyOmamoriSection from './components/omamori/MyOmamoriSection';
 import FortuneListPage from './pages/FortuneListPage';
 import OmamoriEdit from './pages/OmamoriEdit';
+import SharePage from './pages/SharePage';
 
 function App() {
   return (
@@ -36,13 +37,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-{/* 
-        <Route path="/omamori/edit/:id" element={
-          <ProtectedRoute>
-            <OmamoriCreate />
-          </ProtectedRoute>
-          }
-        /> */}
 
         <Route path="/fortune-list" element={
           <ProtectedRoute>
@@ -50,6 +44,8 @@ function App() {
           </ProtectedRoute>
           }
         />   
+
+        <Route path="/share/:token" element={<SharePage />} />
 
       </Routes>
     </>
