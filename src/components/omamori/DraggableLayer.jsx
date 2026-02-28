@@ -16,27 +16,46 @@ export default function DraggableLayer({ layer, baseUrl, handleDragStop, handleD
         <div ref={nodeRef} style={{ position: "absolute", outline: selectedId === layer.tempId ? "2px solid red" : "none" }}>
             {layer.type === "text" && (
             editingId === layer.tempId ? (
-                <input
-                value={layer.content}
-                autoFocus
-                onChange={(e) => {
+                <div>
+                    <input
+                    value={layer.content}
+                    autoFocus
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        setLayers(prev => prev.map(l =>
+                            l.tempId === layer.tempId
+                            ? { ...l, content: value } : l
+                        )
+                        );
+                    }}
+                    // Enter를 눌러 텍스트 저장
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                        handleTextSave(layer);
+                        }
+                    }}
+                    />
+
+                    {/* 컬러 선택 */}
+                    <input
+                    type="color"
+                    value={layer.color || "#111111"}
+                    onChange={(e) => {
                     const value = e.target.value;
-                    setLayers(prev => prev.map(l =>
+                    setLayers(prev =>
+                        prev.map(l =>
                         l.tempId === layer.tempId
-                        ? { ...l, content: value } : l
-                    )
+                            ? { ...l, color: value }
+                            : l
+                        )
                     );
-                }}
-                // Enter를 눌러 텍스트 저장
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                    handleTextSave(layer);
-                    }
-                }}
-                />
+                    }}
+                    />
+            </div>
             ) : (
                 // 수정 상태가 아닌 경우, 텍스트 렌더링
-                <p style={{ fontSize: `${layer.fontSize}px`}}
+                <p style={{ fontSize: `${layer.fontSize}px`,
+                        color: layer.color}}
                     onDoubleClick={() => setEditingId(layer.tempId)}>
                     {layer.content}
                 </p>

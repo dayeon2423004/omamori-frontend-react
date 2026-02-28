@@ -15,7 +15,8 @@ export default function OmamoriCanvas({ omamoriId, layers, setLayers, baseUrl, s
       // 텍스트 수정
       if (updates.content !== undefined) {
         payload.props = {
-          content: updates.content
+          content: updates.content,
+          color: updates.color ?? layer.color
         };
       }
 
@@ -29,7 +30,6 @@ export default function OmamoriCanvas({ omamoriId, layers, setLayers, baseUrl, s
       // 백엔드 요청
       const response = await omamoriElementUpdate(omamoriId, layer.tempId, payload);
 
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }

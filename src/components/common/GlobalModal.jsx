@@ -9,6 +9,7 @@ import BirthDayModal from "../modals/BirthDayModal";
 import FortuneDetailModal from "../modals/FortuneDetailModal";
 import OmamoriCreateModal from "../modals/OmamoriCreateModal";
 import BackMessageModal from "../modals/BackMessageModal";
+import OmamoriShareModal from "../modals/OmamoriShareModal";
 
 // 모달 상태 관리
 function GlobalModal() {
@@ -36,6 +37,8 @@ function GlobalModal() {
         modalContent = <OmamoriCreateModal onClose={closeModal}/>;
     } else if (modal === "backMessage") {
         modalContent = <BackMessageModal omamoriData={modalData}/>
+    } else if (modal === "omamoriShare") {
+        modalContent = <OmamoriShareModal omamoriData={modalData} />
     }
 
     return (
