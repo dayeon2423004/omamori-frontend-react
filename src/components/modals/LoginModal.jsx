@@ -4,10 +4,13 @@ import { login as loginApi } from "../../api/auth.api";
 import { googleAuth } from "../../api/auth.api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import styles from "../../styles/AuthModal.module.css";
+import { useModal } from "../hooks/useModal";
 
 export default function LoginModal({ onClose }) {
 
     const { login, isLoggedIn } = useAuth();
+    const { openModal } = useModal();
     const navigate = useNavigate();
 
     // 이메일, 비밀번호, 검증 비밀번호, 이름 상태 관리
@@ -97,36 +100,43 @@ export default function LoginModal({ onClose }) {
 
     // 화면 그리기
     return (
-        <div className="modal">
-            <form onSubmit={handleSubmit}>
+        <div className={styles.authContainer}>
+            <h2 className={styles.title}>로그인</h2>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <input
+                    className={styles.input}
                     type="email"
                     name="email"
                     placeholder="이메일"
                     value={formData.email}
                     onChange={handleChange}
                 />
-                {errors.email && <p>{errors.email}</p>}
+                {errors.email && <p className={styles.errorText}>{errors.email}</p>}
 
                 <input
+                    className={styles.input}
                     type="password"
                     name="password"
                     placeholder="비밀번호"
                     value={formData.password}
                     onChange={handleChange}
                 />
-                {errors.password && <p>{errors.password}</p>}
+                {errors.password && <p className={styles.errorText}>{errors.password}</p>}
 
-                <button type="submit">로그인</button>
+                <button className={styles.submitButton} type="submit">로그인</button>
 
-                {errors.responseError && <p>{errors.responseError}</p>}
+                {errors.responseError && <p className={styles.errorText}>{errors.responseError}</p>}
 
                 <hr/>
 
-                <button type="button" onClick={handleGoogleLogin}>
+                <button className={styles.link} type="button" onClick={handleGoogleLogin}>
                 Google로 계속하기
                 </button>   
             </form>
+            <p className={styles.footerText}>
+                처음이신가요? 
+                <span className={styles.link} onClick={() => openModal("signup")}>회원가입</span>
+            </p>
         </div>
     );
 }

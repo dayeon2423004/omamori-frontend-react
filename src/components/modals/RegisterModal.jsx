@@ -1,6 +1,7 @@
 // components/modals/RegisterModal.jsx
 import { useState } from "react";
 import { auth } from "../../api/auth.api";
+import styles from "../../styles/AuthModal.module.css";
 
 export default function AuthModal({ openModal }) {
 
@@ -93,48 +94,58 @@ export default function AuthModal({ openModal }) {
 
     // 화면 그리기
     return (
-        <div className="modal">
-            <form onSubmit={handleSubmit}>
+        <div className={styles.authContainer}>
+            <h2 className={styles.title}>회원가입</h2>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <input
+                    className={styles.input}
                     type="text"
                     name="name"
                     placeholder="이름"
                     value={formData.name}
                     onChange={handleChange}
                 />
-                {errors.name && <p>{errors.name}</p>}
+                {errors.name && <p className={styles.errorText}>{errors.name}</p>}
 
                 <input
+                    className={styles.input}
                     type="email"
                     name="email"
                     placeholder="이메일"
                     value={formData.email}
                     onChange={handleChange}
                 />
-                {errors.email && <p>{errors.email}</p>}
+                {errors.email && <p className={styles.errorText}>{errors.email}</p>}
 
                 <input
+                    className={styles.input}
                     type="password"
                     name="password"
                     placeholder="비밀번호"
                     value={formData.password}
                     onChange={handleChange}
                 />
-                {errors.password && <p>{errors.password}</p>}
+                {errors.password && <p className={styles.errorText}>{errors.password}</p>}
 
                 <input
+                    className={styles.input}
                     type="password"
                     name="password_confirmation"
                     placeholder="비밀번호 확인"
                     value={formData.password_confirmation}
                     onChange={handleChange}
                 />
-                {errors.password_confirmation && <p>{errors.password_confirmation}</p>}
+                {errors.password_confirmation && <p className={styles.errorText}>{errors.password_confirmation}</p>}
 
-                <button type="submit">회원가입</button>
+                <button className={styles.submitButton} type="submit">시작하기</button>
 
-                {errors.responseError && <p>{errors.responseError}</p>}
+                {errors.responseError && <p className={styles.errorText}>{errors.responseError}</p>}
             </form>
+
+            <p className={styles.footerText}>
+            이미 계정이 있으신가요? 
+            <span className={styles.link} onClick={() => openModal("login")}>로그인</span>
+        </p>
         </div>
     );
 }

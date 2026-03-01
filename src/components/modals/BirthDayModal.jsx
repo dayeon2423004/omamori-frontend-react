@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { fortuneColorResult } from '../../api/omamoriExpansion.api.js';
 import { useFortune } from '../../context/FortuneContext.jsx';
+import styles from "../../styles/fortuneModal.module.css";
 
 export default function BirthDayModal() {
     // 날짜 상태 관리
@@ -47,32 +48,32 @@ export default function BirthDayModal() {
 
     if (resultColor) {
         return (
-            <div className="modal-container">
-            <h2>오늘의 행운 컬러: {resultColor.name}</h2>
+            <div className={styles.container}>
+            <h2 className={styles.magicTitle}>오늘의 행운 컬러: {resultColor.name}</h2>
             <p><strong>한줄평:</strong> {resultColor.shortMeaning}</p>
             <p><strong>상세 의미:</strong> {resultColor.meaning}</p>
             
-            <div className="tips-section">
+            <div className={styles.tipsSection}>
                 <h3>행운을 높이는 팁</h3>
-                <ul>
+                <ul className={styles.tipsList}>
                     {resultColor.tips.map((tip, i) => <li key={i}>{tip}</li>)}
                 </ul>
             </div>
-            <button onClick={() => handleColor()}>해당 컬러로 배경 색 적용하기</button>
-
+            <button className={styles.magicButton} onClick={() => handleColor()}>해당 컬러로 배경 색 적용하기</button>
         </div>
         );
     }
 
     return (
-        <div className="modal-container">
-            <h2>오늘의 행운 컬러 확인</h2>
-            <p>생년월일을 입력하면 오늘의 컬러를 알려드려요!</p>
+        <div className={styles.container}>
+            <h2 className={styles.magicTitle}>오늘의 행운 컬러 확인</h2>
+            <p className={styles.description}>생년월일을 입력하면 당신의 오늘을 지켜줄<br/>신비로운 컬러를 찾아드려요.</p>
 
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className={styles.inputWrapper}>
                     <label htmlFor="birthday">생년월일: </label>
                     <input 
+                        className={styles.dateInput}
                         type="date" 
                         id="birthday" 
                         name="birthday"
@@ -82,9 +83,9 @@ export default function BirthDayModal() {
                     />
                 </div>
 
-                <div style={{ marginTop: '20px' }}>
-                    <button type="submit">결과 보기</button>
-                </div>
+                <button className={styles.magicButton} type="submit" style={{ marginTop: '30px' }}>
+                    결과 보기
+                </button>
             </form>
         </div>
     );
