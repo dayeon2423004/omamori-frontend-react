@@ -45,7 +45,6 @@ export default function SelectionBoard({ type, onSelect }) {
           onClick={() => onSelect({ ...item, type })}
           style={{ cursor: "pointer", padding: '4px' }}
         >
-          {console.log(item)}
           {item.preview_url ? <img src={`${baseUrl}${item.preview_url}`} alt={item.name} style={{ width: 80, height: 80 }} crossOrigin="anonymous" /> : "X"}
           <span>{item.name}</span>
         </div>
