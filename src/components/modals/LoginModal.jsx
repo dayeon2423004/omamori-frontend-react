@@ -44,11 +44,6 @@ export default function LoginModal({ onClose }) {
         }));
     };
 
-    console.log("현재 origin:", window.location.origin);
-    console.log("현재 href:", window.location.href);
-    console.log("axiosIns baseURL:", axiosIns.defaults.baseURL);
-    console.log("API URL:", import.meta.env.VITE_API_URL);
-
     // 제출 이벤트
     const handleSubmit = async (e) => {
         e.preventDefault(); // 새로고침 방지
