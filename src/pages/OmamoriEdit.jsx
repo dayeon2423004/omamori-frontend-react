@@ -152,7 +152,6 @@ export default function OmamoriEdit() {
                 });
                 newStamp.tempId = response.data.id;
                 setLayers(prev => [...prev, newStamp]);
-                console.log(newStamp.url);
         } catch (error) {
             console.log(error);
         }
