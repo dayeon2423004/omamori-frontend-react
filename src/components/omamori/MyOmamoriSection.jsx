@@ -91,7 +91,7 @@ export default function MyOmamoriSection() {
                                 {/* 제목 클릭 */}
                                 <h3
                                     className={styles.titleText}
-                                    onClick={()=> navigate(`/omamori/edit/${omamori.id}`)}>{omamori.title}
+                                    >{omamori.title}
                                     <span className={styles.editBtn}
                                         onClick={() => {
                                             setEditingId(omamori.id);
