@@ -28,7 +28,7 @@ function GlobalModal() {
     } else if (modal === "profileEdit") {
         modalContent = <ProfileEditModal />;
     } else if (modal === "socialLink") {
-        modalContent = <SocialLinkModal />;
+        modalContent = <SocialLinkModal onClose={closeModal} />;
     } else if (modal === "fortune") {
         modalContent = <BirthDayModal />;
     } else if (modal === "fortuneDetail") {
