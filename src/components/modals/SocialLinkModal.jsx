@@ -3,8 +3,9 @@ import { loginLIst } from "../../api/auth.api";
 import { useEffect } from "react";
 import { GOOGLE_LINK_URL } from "../../constants/GoogleLink";
 import { googleUnlink } from "../../api/auth.api";
+import "../../styles/SocialLinkModal.css";
 
-export default function SocialLinkModal() {
+export default function SocialLinkModal({ onClose }) {
 
     const [isGoogleLinked, setIsGoogleLinked] = useState(false);
     const [loginMethod, setLoginMethod] = useState("");
@@ -53,35 +54,31 @@ export default function SocialLinkModal() {
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-container">
+        <div className="social-modal-overlay">
+            <div className="social-modal-container">
+
+                <button className="close-x-btn" onClick={onClose}>✕</button>
 
                 <p>현재 로그인 중인 이메일: {loginMethod}</p>
-                <p>현재 연동 중인 이메일: {loginMethod}</p>
-
                 <h2>계정 연동 관리</h2>
 
-                <div className="social-section">
-                    <div className="social-item">
-                        <div>
-                            <h3>Google 계정</h3>
-                            <p>
-                                {isGoogleLinked ? "연동됨" : "연동되지 않음"}
-                            </p>
-                        </div>
-
-                        <div>
-                            {isGoogleLinked ? (
-                                <button onClick={handleUnlink}>
-                                    연동 해제
-                                </button>
-                            ) : (
-                                <button onClick={handleGoogleLogin}>
-                                    연동하기
-                                </button>
-                            )}
-                        </div>
+                <div className="social-card">
+                    <div className="social-info">
+                        <h3>Google 계정</h3>
+                        <span className={isGoogleLinked ? "linked" : "unlinked"}>
+                            {isGoogleLinked ? "연동됨" : "연동되지 않음"}
+                        </span>
                     </div>
+
+                        {isGoogleLinked ? (
+                            <button className="unlink-btn" onClick={handleUnlink}>
+                                연동 해제
+                            </button>
+                        ) : (
+                            <button className="link-btn" onClick={handleGoogleLogin}>
+                                연동하기
+                            </button>
+                        )}
                 </div> 
             </div>
         </div> 
