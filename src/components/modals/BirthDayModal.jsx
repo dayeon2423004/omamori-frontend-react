@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { fortuneColorResult } from '../../api/omamoriExpansion.api.js';
 import { useFortune } from '../../context/FortuneContext.jsx';
-import styles from "../../styles/fortuneModal.module.css";
+import styles from "../../styles/FortuneModal.module.css";
 
 export default function BirthDayModal() {
     // 날짜 상태 관리
