@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fortuneColorDetails } from '../../api/omamoriExpansion.api.js'; 
 import { useFortune } from '../../context/FortuneContext'; 
+import styles from '../../styles/FortuneDetail.module.css';
 
 export default function FortuneDetailModal({ colorId }) {
     const [resultColor, setResultColor] = useState(null);
@@ -32,20 +33,26 @@ export default function FortuneDetailModal({ colorId }) {
     if (!resultColor) return <div>로딩 중...</div>;
 
     return (
-        <div className="modal-container">
+        <div className={styles.container}>
             <h2>{resultColor.name}</h2>
-            <div style={{ backgroundColor: resultColor.hex, height: '20px', width: '100%' }}></div>
-            <p><strong>한줄평:</strong> {resultColor.short_meaning}</p>
-            <p><strong>상세 의미:</strong> {resultColor.meaning}</p>
+
+            <div className={styles.contentSection}>
+                <p className={styles.shortMeaning}>
+                    <span className={styles.label}>한줄평</span> {resultColor.short_meaning}
+                </p>
+                <p className={styles.fullMeaning}>
+                    {resultColor.meaning}
+                </p>
+            </div>
             
-            <div className="tips-section">
-                <h3>행운을 높이는 팁</h3>
-                <ul>
-                    {resultColor.tips.map((tip, i) => <li key={i}>{tip}</li>)}
+            <div className={styles.tipsSection}>
+                <h3 className={styles.tipsTitle}>✨ 행운을 높이는 팁</h3>
+                    <ul className={styles.tipsList}>
+                        {resultColor.tips.map((tip, i) => <li key={i}>{tip}</li>)}
                 </ul>
             </div>
             
-            <button onClick={handleColor}>해당 컬러로 배경 색 적용하기</button>
+            <button className={styles.magicButton} onClick={handleColor}>해당 컬러로 배경 색 적용하기</button>
         </div>
     );
 }

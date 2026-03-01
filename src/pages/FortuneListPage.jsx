@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fortuneColorList } from '../api/omamoriExpansion.api.js';
 import { useModal } from '../components/hooks/useModal.js';
+import '../styles/fortuneColorList.css';
 
 export default function FortuneListPage() {
     const [colors, setColors] = useState([]);
@@ -32,7 +33,7 @@ export default function FortuneListPage() {
 
     return (
         <div className="list-page">
-            <h2>행운 컬러 목록</h2>
+            <h2 className="page-title">행운 컬러 목록</h2>
             
             <div className="color-grid">
                 {colors.map(color => (
@@ -41,10 +42,13 @@ export default function FortuneListPage() {
                         className="color-card"
                         onClick={() => openModal("fortuneDetail", { id: color.id })} 
                     >
-                        <span>{color.id}. {color.name}</span>
-                        <hr/>
-                    </div>
-                ))}
+                        <div className="color-circle" style={{ backgroundColor: color.hex || '#eee' }}></div>
+                            <div className="color-info">
+                                <span className="color-id">#{String(color.id).padStart(2, '0')}</span>
+                                <span className="color-name">{color.name}</span>
+                            </div>
+                        </div>
+                    ))}
             </div>
 
             {/* 페이지네이션 UI */}
