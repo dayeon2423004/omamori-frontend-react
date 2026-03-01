@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  color: #8e8e8e;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.currentName {
+  font-size: 16px;
+  color: #222;
+  padding: 8px 4px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #a8a8a8;
+}
+
+.saveButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #0095f6; /* 인스타 블루 */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
