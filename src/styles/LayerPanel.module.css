@@ -1,0 +1,95 @@
+.panelContainer {
+  position: fixed;
+  right: 20px;
+  top: 100px; /* 상단 버튼들과 겹치지 않게 여유를 둡니다 */
+  width: 240px;
+  max-height: 70vh;
+  background: rgba(30, 30, 30, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  color: white;
+  padding: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.panelTitle {
+  font-size: 14px;
+  font-weight: bold;
+  color: #aaa;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.layerList {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layerItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: #3a3a3a;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 1px solid transparent;
+}
+
+.layerItem:hover {
+  background: #454545;
+}
+
+.selected {
+  border-color: #6e8efb;
+  background: #4a4a4a;
+}
+
+.layerIcon {
+  margin-right: 10px;
+  font-size: 12px;
+  color: #6e8efb;
+}
+
+.layerInfo {
+  flex: 1;
+  font-size: 13px;
+}
+
+.controls {
+  display: flex;
+  gap: 5px;
+}
+
+.btn {
+  background: #555;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #777;
+}
+
+.fontSizeInput {
+  width: 50px;
+  background: #222;
+  border: 1px solid #555;
+  color: white;
+  border-radius: 4px;
+  margin-left: 10px;
+  font-size: 12px;
+  padding: 2px;
+}

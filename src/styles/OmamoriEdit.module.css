@@ -34,11 +34,10 @@
 }
 
 /* 캔버스는 그래도 중앙이 예쁘므로 */
-.canvasContainer {
-  width: 100%;
+.centerSection {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  transform: translateX(-80px);
 }
 
 /* UI 보드 스타일 확장 */
@@ -129,22 +128,22 @@
   border: none;
 }
 
-/* 우측 섹션: 오마모리 캔버스 */
-.rightSection {
-  flex-shrink: 0; /* 크기 유지 */
+/* 우측 섹션: 레이어 판넬 */
+.rightPanel {
   position: sticky;
-  top: 40px; /* 스크롤 시 따라오게 설정 가능 */
+  top: 120px; /* 상단 버튼 아래로 시작 */
+  height: fit-content;
 }
 
 /* 전체 레이아웃 분할 */
 .mainContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  max-width: 1200px; /* 가로 폭 확장 */
+  display: grid;
+  grid-template-columns: 1fr 500px 1fr;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 20px;
-  gap: 40px;
+  padding: 60px 40px 140px;
+  gap: 60px;
+  position: relative;
 }
 
 /* 좌측 섹션: 제목, 본문, UI 보드 */

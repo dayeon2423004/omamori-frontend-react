@@ -304,50 +304,49 @@ export default function OmamoriEdit() {
     <div className={styles.mainContainer}>
         {/* 우측 상단 액션 버튼 */}
         <div className={styles.leftSection}>
-        <div className={styles.topActionGroup}>
-            <button className={`${styles.actionBtn} ${styles.publishBtn}`} onClick={handlePublish}>최종저장</button>
-            <button className={styles.actionBtn} onClick={handleShare}>공유</button>
-            <button className={styles.actionBtn} onClick={() => openModal("backMessage", {layer : layers.find(l => l.type === "frame"), omamoriId : id, setLayers : setLayers})}>뒷면 메세지 입력하기</button>
+            <div className={styles.topActionGroup}>
+                <button className={`${styles.actionBtn} ${styles.publishBtn}`} onClick={handlePublish}>최종저장</button>
+                <button className={styles.actionBtn} onClick={handleShare}>공유</button>
+                <button className={styles.actionBtn} onClick={() => openModal("backMessage", {layer : layers.find(l => l.type === "frame"), omamoriId : id, setLayers : setLayers})}>뒷면 메세지 입력하기</button>
+            </div>
 
-        </div>
+            {/* 제목 영역 */}
+            <header className={styles.header}>
+                <h3 className={styles.title}>{omamoriData?.title || "제목 없는 오마모리"}</h3>
+            </header>
 
-        {/* 제목 영역 */}
-        <header className={styles.header}>
-            <h3 className={styles.title}>{omamoriData?.title || "제목 없는 오마모리"}</h3>
-        </header>
+            <div className={styles.divider} />
 
-        <div className={styles.divider} />
-
-        {/* {imageUrl ? (<img src={imageUrl} />) : (<p>X</p>)} */}
-        
-        {/* 본문 메세지 입력 */}
-        <div className={styles.messageSection}>
-            <form onSubmit={handleSubmit}>
-                {editContent ? (
-                    <div>
-                    <textarea
-                        className={styles.textarea}
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        autoFocus
-                        onBlur={() => setEditContent(false)}
-                    />
-                    <button type="submit" className={styles.actionBtn}>완료</button>
-                    </div>
-                ) : (
-                    <p className={styles.messageText} onClick={() => {setEditContent(true);}}> {content} </p>
-                )}
-            </form>
-        </div>
+            {/* {imageUrl ? (<img src={imageUrl} />) : (<p>X</p>)} */}
+            
+            {/* 본문 메세지 입력 */}
+            <div className={styles.messageSection}>
+                <form onSubmit={handleSubmit}>
+                    {editContent ? (
+                        <div>
+                        <textarea
+                            className={styles.textarea}
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            autoFocus
+                            onBlur={() => setEditContent(false)}
+                        />
+                        <button type="submit" className={styles.actionBtn}>완료</button>
+                        </div>
+                    ) : (
+                        <p className={styles.messageText} onClick={() => {setEditContent(true);}}> {content} </p>
+                    )}
+                </form>
+            </div>
         </div>
 
         {/* 캔버스 영역 */}
-        <div className={styles.rightSection}>
+        <div className={styles.centerSection}>
             {<OmamoriCanvas omamoriId={id} layers={layers} setLayers={setLayers} baseUrl={baseUrl} selectedId={selectedId} setSelectedId={setSelectedId} changeFontSize={changeFontSize}/>}
         </div>
 
         {/* 레이어 화면 */}
-        <div>
+        <div className={styles.rightPanel}>
             < LayerPanel layers={layers} selectedId={selectedId} setSelectedId={setSelectedId} moveLayerUp={moveLayerUp} moveLayerDown={moveLayerDown} changeFontSize={changeFontSize} />
         </div>
 
