@@ -1,0 +1,78 @@
+.modalContainer {
+  padding: 30px;
+  background: #fff;
+  border-radius: 20px;
+  text-align: center;
+  width: 400px;
+}
+
+.modalTitle {
+  font-size: 20px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.previewSection {
+  position: relative; /* 자식 요소인 textarea를 겹치기 위한 기준점 */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.frameImage {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  opacity: 0.9;
+  border-radius: 10px;
+  /* 부드러운 그림자로 입체감 부여 */
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+}
+
+.messageOverlay {
+  position: absolute; /* 이미지 위에 둥둥 뜨게 함 */
+  width: 180px;      /* 프레임 안쪽 너비에 맞게 조절 */
+  height: 220px;     /* 프레임 안쪽 높이에 맞게 조절 */
+  background: transparent; /* 배경을 투명하게 하여 이미지 보임 */
+  border: none;
+  outline: none;
+  resize: none;
+  
+  /* 텍스트 스타일링: 오마모리 뒷면 느낌 */
+  color: #111;       /* 요청하신 일반 검정색 */
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: center;
+  font-family: 'Noto Serif KR', serif; /* 세리프체로 고급스럽게 */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.messageOverlay::placeholder {
+  color: rgba(0,0,0,0.2);
+}
+
+.buttonGroup {
+  width: 100%;
+}
+
+.saveBtn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: #333;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.saveBtn:hover {
+  background: #000;
+}

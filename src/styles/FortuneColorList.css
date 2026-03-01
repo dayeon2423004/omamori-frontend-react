@@ -1,0 +1,68 @@
+.list-page {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333;
+  letter-spacing: -0.5px;
+}
+
+.color-grid {
+  display: grid;
+  /* 화면 크기에 따라 자동으로 칸 조절 */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.color-card {
+  background: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.color-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border-color: #6e8efb;
+}
+
+.color-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.color-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.color-id {
+  font-size: 12px;
+  color: #bbb;
+  font-weight: 500;
+}
+
+.color-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #444;
+}
+
+/* 기존의 투박한 hr은 제거하는 것이 훨씬 깔끔합니다 */

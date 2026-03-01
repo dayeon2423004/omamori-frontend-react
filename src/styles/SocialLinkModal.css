@@ -1,0 +1,82 @@
+.social-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-modal-container {
+  background: #ffffff;
+  width: 420px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  text-align: center;
+  position: relative;
+}
+
+.close-x-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.social-card {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #f8f9ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-info h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.linked {
+  color: #4a6cf7;
+  font-weight: 600;
+}
+
+.unlinked {
+  color: #999;
+}
+
+.link-btn, .unlink-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.link-btn {
+  background: #4a6cf7;
+  color: white;
+}
+
+.link-btn:hover {
+  background: #3c57d3;
+}
+
+.unlink-btn {
+  background: #eee;
+}
+
+.unlink-btn:hover {
+  background: #ddd;
+}
