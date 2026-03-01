@@ -71,6 +71,7 @@ export default function OmamoriEdit() {
                 setLayers([initialFrame, ...parsedElements]);
 
                 setOmamoriData(response.data);
+                console.log(response.data);
 
                 // 공유링크 저장
                 const saved = localStorage.getItem(`share_${id}`);
