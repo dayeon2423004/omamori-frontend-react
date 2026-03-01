@@ -128,3 +128,30 @@
   color: white;
   border: none;
 }
+
+/* 우측 섹션: 오마모리 캔버스 */
+.rightSection {
+  flex-shrink: 0; /* 크기 유지 */
+  position: sticky;
+  top: 40px; /* 스크롤 시 따라오게 설정 가능 */
+}
+
+/* 전체 레이아웃 분할 */
+.mainContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px; /* 가로 폭 확장 */
+  margin: 0 auto;
+  padding: 40px 20px;
+  gap: 40px;
+}
+
+/* 좌측 섹션: 제목, 본문, UI 보드 */
+.leftSection {
+  flex: 1; /* 남은 공간 차지 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 400px;
+}
