@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { editMyPage } from "../../api/auth.api";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/ProfileEditModal.module.css";
 
 export default function ProfileEditModal() {
     const { user } = useAuth();
@@ -21,38 +22,31 @@ export default function ProfileEditModal() {
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-container">
-
-                <h2>프로필 수정</h2>
+        <div className={styles.container}>
+            <h2 className={styles.title}>프로필 수정</h2>
 
                 <form onSubmit={handleSubmit}>
-
-                    <div className="form-group">
-                        <label>현재 닉네임</label>
-                        <p>{user?.name}</p>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>현재 닉네임</label>
+                        <p className={styles.currentName}>{user?.name}</p>
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="nickname">새 닉네임</label>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label} htmlFor="nickname">새 닉네임</label>
                         <input
+                            className={styles.input}
                             id="nickname"
                             type="text"
                             value={nickname}
                             onChange={(e) => setNickname(e.target.value)}
                             placeholder="새 닉네임 입력"
+                            required
                         />
                     </div>
-
-                    <div className="modal-button">
-                        <button type="submit">
-                            저장
-                        </button>
-                    </div>
-
+                    <button className={styles.saveButton} type="submit">
+                        저장
+                    </button>
                 </form>
-
-            </div>
         </div>
     );
 }

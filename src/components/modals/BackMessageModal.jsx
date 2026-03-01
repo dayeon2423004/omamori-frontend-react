@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { backOmamori} from "../../api/omamori.api";
+import styles from '../../styles/BackMessage.module.css';
 
 export default function BackMessageModal ({ omamoriData }) {
     const [message, setMessage] = useState(omamoriData.layer?.back_message || "");
@@ -24,21 +25,28 @@ export default function BackMessageModal ({ omamoriData }) {
     };
 
     return (
-        <div className="modal">
-            <div className="preview">
+        <div className={styles.modalContainer}>
+            <h2 className={styles.modalTitle}>뒷면 메시지 작성</h2>
+            <div className={styles.previewSection}>
+                {/* 배경 프레임 이미지 */}
                 <img
+                    className={styles.frameImage}
                     src={`${baseUrl}${omamoriData.layer.url}`}
-                    style={{ opacity: 0.8 }}
+                    alt="Frame"
+                />
+
+                <textarea
+                    className={styles.messageOverlay}
+                    placeholder="뒷면에 들어갈 메세지를 입력해주세요"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    maxLength={100}
                 />
             </div>
 
-        <textarea
-            placeholder="뒷면에 들어갈 메세지를 입력해주세요"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-        />
-
-        <button onClick={handleSave}>저장</button>
+            <div className={styles.buttonGroup}>
+                <button className={styles.saveBtn} onClick={handleSave}>메시지 저장하기</button>
+            </div>
         </div>
     );
 };

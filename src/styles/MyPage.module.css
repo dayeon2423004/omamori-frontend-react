@@ -1,0 +1,113 @@
+.container {
+  max-width: 935px; /* 인스타그램 프로필 표준 폭 */
+  margin: 0 auto;
+  padding: 30px 20px;
+  font-family: "Pretendard", sans-serif;
+}
+
+/* 상단 프로필 영역 */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 44px;
+  gap: 40px;
+}
+
+.profileImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+  border: 1px solid #dbdbdb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.userInfo {
+  flex: 1;
+}
+
+.userNameRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.userName {
+  font-size: 28px;
+  font-weight: 300;
+  color: #262626;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButton {
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.actionButton:hover {
+  background-color: #fafafa;
+}
+
+.dangerButton {
+  color: #ed4956;
+}
+
+/* 탭 메뉴 영역 */
+.tabNav {
+  border-top: 1px solid #dbdbdb;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.tabLink {
+  text-decoration: none;
+  color: #8e8e8e;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  border-top: 1px solid transparent;
+  margin-top: -1px;
+}
+
+.activeTab {
+  color: #262626;
+  border-top: 1px solid #262626;
+}
+
+/* 하단 행운 섹션 */
+.fortuneSection {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.fortuneButton {
+  background: none;
+  border: none;
+  color: #0095f6;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 15px;
+}

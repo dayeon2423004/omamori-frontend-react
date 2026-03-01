@@ -5,6 +5,7 @@ import { useModal } from "../components/hooks/useModal";
 import { deleteUser } from "../api/auth.api";
 import PasswordConfirm from "../components/auth/PasswordConfirm";
 import { Outlet, useNavigate, NavLink } from "react-router-dom";
+import styles from "../styles/MyPage.module.css";
 
 export default function MyPage() {
     const [step, setStep] = useState("default");
@@ -47,25 +48,29 @@ export default function MyPage() {
     }
 
     return (
-        <div>
-
+        <div className={styles.container}>
             {/* 상단 유저 정보 영역 */}
-            <header>
-                <h1>{user?.name} 님</h1> 
-                <button onClick={() => openModal("profileEdit")}>프로필 수정</button>
-                <button onClick={() => openModal("socialLink")}>계정 연동 관리</button>
-                <button onClick={handleLogout}>로그아웃</button>
-                <button onClick={handleDeleteAccount}>회원탈퇴</button>
+            <header className={styles.header}>
+                <div className={styles.userInfo}>
+                    <div className={styles.userNameRow}>
+                        <h1 className={styles.userName}>{user?.name}</h1>
+                        <div className={styles.buttonGroup}>
+                            <button className={styles.actionButton} onClick={() => openModal("profileEdit")}>프로필 수정</button>
+                            <button className={styles.actionButton} onClick={() => openModal("socialLink")}>계정 관리</button>
+                        </div>
+                    </div>
+                    <div className={styles.buttonGroup}>
+                        <button className={styles.actionButton} onClick={handleLogout}>로그아웃</button>
+                        <button className={`${styles.actionButton} styles.dangerButton`} onClick={handleDeleteAccount}>회원탈퇴</button>
+                    </div>
+                </div>
             </header>
-
-            <hr />
 
             {/* 메뉴 탭 영역 */}
             <nav>
-                <NavLink to="" end>
-                    {({ isActive }) =>
-                        isActive ? "★ 내 오마모리" : "내 오마모리"
-                    }
+                <NavLink to="" end
+                    className={({ isActive }) => isActive ? `${styles.tabLink} ${styles.activeTab}` : styles.tabLink}>
+                    내 오마모리
                 </NavLink>
 
                 {/* 확장 */}
@@ -87,16 +92,16 @@ export default function MyPage() {
             <hr />
 
             {/* 본문 영역 */}
-            <nav>
+            <main style={{ marginTop: '20px' }}>
                 <Outlet />
-            </nav>
+            </main>
 
             <hr />
 
             {/* 행운 컬러 보기 */}
-            <section>
-                <button onClick={() => openModal("fortune")}> 오늘의 행운 컬러 보기 </button>
-                <button onClick={() => navigate("/fortune-list")}> 전체 행운 컬러 목록 </button>
+            <section className={styles.fortuneSection}>
+                <button className={styles.fortuneButton} onClick={() => openModal("fortune")}> 오늘의 행운 컬러 보기 </button>
+                <button className={styles.fortuneButton} onClick={() => navigate("/fortune-list")}> 전체 행운 컬러 목록 </button>
             </section>
 
         </div>

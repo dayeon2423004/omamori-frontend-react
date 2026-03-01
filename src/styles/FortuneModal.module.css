@@ -1,0 +1,81 @@
+.container {
+  text-align: center;
+  padding: 10px;
+  color: #333;
+}
+
+/* 신비로운 느낌의 타이틀 */
+.magicTitle {
+  font-size: 22px;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
+/* 결과창 컬러 강조 카드 */
+.colorCard {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(167, 119, 227, 0.2);
+  box-shadow: 0 10px 30px rgba(167, 119, 227, 0.1);
+}
+
+.tipsSection {
+  text-align: left;
+  background: #f8f7ff;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.tipsSection h3 {
+  font-size: 15px;
+  color: #7c4dff;
+  margin-bottom: 10px;
+}
+
+.tipsList {
+  list-style: none;
+  padding: 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.tipsList li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.tipsList li::before {
+  content: "✨";
+  margin-right: 8px;
+}
+
+/* 신비로운 버튼 */
+.magicButton {
+  background: linear-gradient(135deg, #a777e3, #6e8efb);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(110, 142, 251, 0.3);
+  transition: 0.3s;
+}
+
+.magicButton:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(110, 142, 251, 0.4);
+}

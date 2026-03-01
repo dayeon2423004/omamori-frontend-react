@@ -1,6 +1,7 @@
 import { omamoriPublic } from "../../api/omamoriExport.api";
 import { useState, useEffect } from "react";
 import ShareOmamori from "../omamori/ShareOmamori";
+import styles from "../../styles/Share.module.css";
 
 export default function OmamoriShareModal ({ omamoriData }) {
     const [data, setData] = useState(null);
@@ -27,17 +28,19 @@ export default function OmamoriShareModal ({ omamoriData }) {
     }, [omamoriData.shareCode]);
 
     return (
-        <div>
-            <h2>공유 미리보기</h2>
+        <div style={{ textAlign: 'center', padding: '20px' }}>
+            <h2 style={{ marginBottom: '20px', fontSize: '18px' }}>오마모리 공유하기</h2>
 
             {data ? (<ShareOmamori omamori={data} />) : (<p>로딩중</p>)}
 
-            <input value={shareUrl} readOnly />
-            <button onClick={() => {navigator.clipboard.writeText(shareUrl); alert("링크 복사 완료!");}}>
-            복사
-            </button>
+            <div className={styles.linkSection}>
+                <input className={styles.urlInput} value={shareUrl} readOnly />
+                <button className={styles.copyBtn} onClick={() => {navigator.clipboard.writeText(shareUrl); alert("링크 복사 완료!");}}>
+                    복사
+                </button>
 
-            <button onClick={omamoriData.delete}>공유 취소</button>
+                <button className={styles.cancelBtn} onClick={omamoriData.delete}>공유 취소</button>
+            </div>
         </div>
     );
 };

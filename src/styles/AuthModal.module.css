@@ -1,0 +1,88 @@
+/* Container & Title */
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 320px; /* 입력창 폭 제한 */
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #222;
+}
+
+/* Form Layout */
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* 입력창 사이 간격 */
+}
+
+/* Input Fields */
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #eee;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  outline: none;
+  background-color: #f9f9f9;
+}
+
+.input:focus {
+  border-color: #8fb8ff;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(143, 184, 255, 0.1);
+}
+
+/* Error Messages */
+.errorText {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-top: -8px;
+  margin-left: 4px;
+}
+
+/* Submit Button */
+.submitButton {
+  margin-top: 10px;
+  padding: 14px;
+  background: linear-gradient(135deg, #8fb8ff, #6aa5ff);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.submitButton:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
+
+/* Footer (Switch between Login/Signup) */
+.footerText {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #888;
+}
+
+.link {
+  color: #6aa5ff;
+  text-decoration: none;
+  margin-left: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}

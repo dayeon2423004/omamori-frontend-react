@@ -28,7 +28,7 @@ function GlobalModal() {
     } else if (modal === "profileEdit") {
         modalContent = <ProfileEditModal />;
     } else if (modal === "socialLink") {
-        modalContent = <SocialLinkModal />;
+        modalContent = <SocialLinkModal onClose={closeModal} />;
     } else if (modal === "fortune") {
         modalContent = <BirthDayModal />;
     } else if (modal === "fortuneDetail") {
@@ -42,22 +42,59 @@ function GlobalModal() {
     }
 
     return (
-        <div style={{
+        // 모달 영역
+        <div 
+        onClick={closeModal} // 배경 클릭 시 닫기
+        style={{
             position: "fixed",
             top: 0,
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)", 
+            backgroundColor: "rgba(34, 34, 34, 0.4)", 
+            backdropFilter: "blur(5px)", 
             display: "flex",
             justifyContent: "center", 
             alignItems: "center",    
-            zIndex: 1000         
+            zIndex: 1000 
         }}>
-            {/* 테스트용 박스 */}
-            <div style={{ backgroundColor: "white", padding: "20px", borderRadius: "8px" }}>
+            {/* 모달 콘텐츠 영역 (둥근 직사각형) */}
+            <div 
+                onClick={(e) => e.stopPropagation()} 
+                style={{ 
+                position: "relative", 
+                backgroundColor: "white", 
+                padding: "40px", 
+                borderRadius: "32px", 
+                width: "auto", 
+                minWidth: "400px", 
+                maxWidth: "90%", 
+                boxShadow: "0 10px 40px rgba(0, 0, 0, 0.08)", 
+                border: "1px solid rgba(0, 0, 0, 0.03)", 
+                }}
+            >
                 {/* 닫기 버튼 임시 추가 */}
-                <button onClick={closeModal}>X</button>
+                <button 
+                    onClick={closeModal}
+                    style={{
+                        position: "absolute",
+                        top: "16px",
+                        right: "16px",
+                        background: "none",
+                        border: "none",
+                        fontSize: "24px",
+                        color: "#999", 
+                        cursor: "pointer",
+                        fontWeight: "light",
+                        padding: "8px",
+                        lineHeight: 1,
+                        transition: "0.2s", // 호버 효과
+                    }}
+                    onMouseEnter={(e) => (e.target.style.color = "#222")}
+                    onMouseLeave={(e) => (e.target.style.color = "#999")}
+                    >
+                    &times; 
+                </button>
                 {modalContent}
             </div>
         </div>

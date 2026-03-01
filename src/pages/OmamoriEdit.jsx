@@ -11,6 +11,7 @@ import OmamoriCanvas from '../components/omamori/OmamoriCanvas';
 import LayerPanel from '../components/omamori/LayerPanel';
 import { useModal } from '../components/hooks/useModal';
 import { omamoriImage, omamoriShare, omamoriUrlDel } from '../api/omamoriExport.api';
+import styles from "../styles/OmamoriEdit.module.css";
 
 export default function OmamoriEdit() {
     const navigate = useNavigate();
@@ -137,8 +138,8 @@ export default function OmamoriEdit() {
             type: "stamp",
             url: preview_url,         
             asset_key: key,  
-            x: 30,
-            y: 30,
+            x: 300,
+            y: 300,
             rotation: 0,
             zIndex: layers.length
             }
@@ -151,7 +152,6 @@ export default function OmamoriEdit() {
                 });
                 newStamp.tempId = response.data.id;
                 setLayers(prev => [...prev, newStamp]);
-                console.log(newStamp.url);
         } catch (error) {
             console.log(error);
         }
@@ -160,11 +160,11 @@ export default function OmamoriEdit() {
     // 레이어 중 프레임만 변경
     const changeFrame = async(url, fid) => {
         setLayers(prev => prev.map(layer => 
-            layer.type === 'frame' ? { ...layer, url: url, id : fid } : layer
+            layer.type === 'frame' ? { ...layer, url: url, id : fid} : layer
         ));
         try {
             // 프레임 적용
-            const res = await frames(id, { frameId : fid}) 
+            const res = await frames(id, { frameId : fid});
         } catch(error) {
             console.log(error);
         }
@@ -250,7 +250,7 @@ export default function OmamoriEdit() {
                 "dpi": 300,
                 "includeBack": true
             });
-            setImageUrl(`http://localhost:8000${res.data.download_url}`);
+            setImageUrl(`${baseUrl}${res.data.download_url}`);
 
         } catch (error) {
             console.error(error);
@@ -301,78 +301,92 @@ export default function OmamoriEdit() {
     };
 
   return (
-    <>
-        {/* 제목 영역 */}
-        <div>
-            <h3>{omamoriData?.title}</h3>
-        </div>
+    <div className={styles.mainContainer}>
+        {/* 우측 상단 액션 버튼 */}
+        <div className={styles.leftSection}>
+            <div className={styles.topActionGroup}>
+                <button className={`${styles.actionBtn} ${styles.publishBtn}`} onClick={handlePublish}>최종저장</button>
+                <button className={styles.actionBtn} onClick={handleShare}>공유</button>
+                <button className={styles.actionBtn} onClick={() => openModal("backMessage", {layer : layers.find(l => l.type === "frame"), omamoriId : id, setLayers : setLayers})}>뒷면 메세지 입력하기</button>
+            </div>
 
-        {/* 캔버스 영역 */}
-        <div>
-            {<OmamoriCanvas omamoriId={id} layers={layers} setLayers={setLayers} baseUrl={baseUrl} selectedId={selectedId} setSelectedId={setSelectedId} changeFontSize={changeFontSize}/>}
-        </div>
+            {/* 제목 영역 */}
+            <header className={styles.header}>
+                <h3 className={styles.title}>{omamoriData?.title || "제목 없는 오마모리"}</h3>
+            </header>
 
-        {imageUrl ? (<img src={imageUrl} />) : (<p>X</p>)}
-        
-        <div>
-            <form onSubmit={handleSubmit}>
-                {/* ===== 본문 영역 ===== */}
-                {editContent ? (
-                    <div>
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        autoFocus
-                    />
-                    <button type="submit">완료</button>
-                    </div>
-                ) : (
-                    <p onClick={() => {
-                        setEditContent(true);
-                    }}>
-                    {content}
-                    </p>
-                )}
-            </form>
-        </div>
+            <div className={styles.divider} />
 
-        {/* 레이어 화면 */}
-        <div>
-            < LayerPanel layers={layers} selectedId={selectedId} setSelectedId={setSelectedId} moveLayerUp={moveLayerUp} moveLayerDown={moveLayerDown} changeFontSize={changeFontSize} />
-        </div>
-
-        {/* ===== 하단 액션 버튼 ===== */}
-        <div>
-            <button type="button" onClick={handlePublish}>최종저장</button>
-            <button type="button" onClick={() => openModal("backMessage", {layer : layers.find(l => l.type === "frame"), omamoriId : id, setLayers : setLayers})}>뒷면 메세지 입력하기</button>
-            <button type="button" onClick={handleShare}>공유</button>
-        </div>
-
-        {/* ===== UI 보드 ===== */}
-        <div>
-            <h3>UI 보드</h3>
-
-            <div>
-            <button type="button" onClick={() => addText("Text")}>텍스트</button>
-            <button type="button" onClick={() => setSelectionType("Stamp")}>스탬프</button>
-            <button type="button" onClick={() => setSelectionType("Frame")}>프레임</button>
+            {/* {imageUrl ? (<img src={imageUrl} />) : (<p>X</p>)} */}
+            
+            {/* 본문 메세지 입력 */}
+            <div className={styles.messageSection}>
+                <form onSubmit={handleSubmit}>
+                    {editContent ? (
+                        <div>
+                        <textarea
+                            className={styles.textarea}
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            autoFocus
+                            onBlur={() => setEditContent(false)}
+                        />
+                        <button type="submit" className={styles.actionBtn}>완료</button>
+                        </div>
+                    ) : (
+                        <p className={styles.messageText} onClick={() => {setEditContent(true);}}> {content} </p>
+                    )}
+                </form>
             </div>
         </div>
 
-        {/* 조건부 렌더링 */}
-        {selectionType && (
-            <SelectionBoard 
-                type={selectionType}
-                omamoriId={id}
-                // 각 타입에 따른 로직을 함수로 전달. 
-                onSelect={(item) => {
-                if (item.type === "Stamp") addStamp(item.preview_url, item.key);
-                if (item.type === "Frame") changeFrame(item.stamp_url, item.id, item.frame_key);
-                setSelectionType(null); 
-                console.log(item);
-                }} 
-            />
-        )}
-    </>
-  );
+        {/* 캔버스 영역 */}
+        <div className={styles.centerSection}>
+            {<OmamoriCanvas omamoriId={id} layers={layers} setLayers={setLayers} baseUrl={baseUrl} selectedId={selectedId} setSelectedId={setSelectedId} changeFontSize={changeFontSize}/>}
+        </div>
+
+        {/* 레이어 화면 */}
+        <div className={styles.rightPanel}>
+            < LayerPanel layers={layers} selectedId={selectedId} setSelectedId={setSelectedId} moveLayerUp={moveLayerUp} moveLayerDown={moveLayerDown} changeFontSize={changeFontSize} />
+        </div>
+
+        {/* UI 보드 */}
+        <div className={styles.uiBoard}>
+            <div className={styles.uiHeader}>
+                <span className={styles.categoryLabel}>CATEGORY</span>
+                <div className={styles.tabGroup}>
+                    <button 
+                        className={`${styles.tabBtn} ${selectionType === "Frame" ? styles.activeTab : ""}`}
+                        onClick={() => setSelectionType("Frame")}
+                    >프레임</button>
+                    <button 
+                        className={`${styles.tabBtn} ${selectionType === "Text" ? styles.activeTab : ""}`}
+                        onClick={() => { addText("Text"); setSelectionType("Text"); }}
+                    >텍스트</button>
+                    <button 
+                        className={`${styles.tabBtn} ${selectionType === "Stamp" ? styles.activeTab : ""}`}
+                        onClick={() => setSelectionType("Stamp")}
+                    >스탬프</button>
+                </div>
+            </div>
+
+            {/* 조건부 렌더링 */}
+            {selectionType && (
+                <div className={styles.uiContent}>
+                    <SelectionBoard 
+                        type={selectionType}
+                        omamoriId={id}
+                        // 각 타입에 따른 로직을 함수로 전달. 
+                        onSelect={(item) => {
+                            if (item.type === "Stamp") addStamp(item.preview_url ?? item.stamp_url, item.key);
+                            if (item.type === "Frame") changeFrame(item.preview_url, item.id, item.frame_key);
+                            setSelectionType(null); 
+                        }} 
+                    />
+                </div>
+                )}
+                {!selectionType && <p style={{color: '#666', textAlign: 'center'}}>카테고리를 선택하여 오마모리를 꾸며보세요.</p>}
+            </div>
+        </div>
+    );
 }

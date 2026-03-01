@@ -79,7 +79,16 @@ export default function OmamoriCanvas({ omamoriId, layers, setLayers, baseUrl, s
 
   // 렌더링
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ 
+      position: "relative", 
+      width: "450px",  
+      height: "600px", 
+      margin: "0 auto", 
+      backgroundColor: "#fff",
+      borderRadius: "20px",
+      overflow: "hidden", 
+      boxShadow: "0 10px 30px rgba(0,0,0,0.05)"
+    }}>
       {[...layers]
       .sort((a, b) => a.zIndex - b.zIndex)
       .map(layer => {
@@ -87,12 +96,20 @@ export default function OmamoriCanvas({ omamoriId, layers, setLayers, baseUrl, s
         if (layer.type === "frame") {
           return (
             <img
-              key={layer.id}
-              src={`${baseUrl}${layer.url}`}
-              width={"200"}
-              style={{ position: "absolute", left: "300px",}}
-              alt=""
-            />
+                key={layer.id} 
+                src={`${baseUrl}${layer.url}`}
+                style={{ 
+                  position: "absolute", 
+                  top: 0, 
+                  left: 0, 
+                  width: "100%", 
+                  height: "100%", 
+                  objectFit: "contain",
+                  pointerEvents: "none", 
+                  zIndex: 0 
+                }}
+                alt="Omamori Frame"
+              />
           );
         }
 

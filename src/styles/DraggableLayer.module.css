@@ -1,0 +1,87 @@
+.draggableWrapper {
+  position: absolute;
+  cursor: move;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 8px;
+  transition: outline 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  touch-action: none;
+}
+
+/* 선택되었을 때의 신비로운 파란색 글로우 */
+.selected {
+  outline: 2px solid #6e8efb;
+  box-shadow: 0 0 15px rgba(110, 142, 251, 0.5);
+}
+
+.textElement {
+  margin: 0;
+  white-space: nowrap;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.stampElement {
+  display: block;
+  object-fit: contain;
+  pointer-events: none; /* 이미지 자체 드래그 방지 보조 */
+}
+
+/* 입력창 디자인 */
+.editContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.textInput {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.textInput:focus {
+  border-color: #a777e3;
+}
+
+.colorPicker {
+  width: 100%;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+/* 삭제 버튼 */
+.deleteBtn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #ff4d4f;
+  color: white;
+  border: 2px solid white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease;
+  z-index: 100;
+}
+
+.deleteBtn:hover {
+  transform: scale(1.1);
+  background-color: #ff7875;
+}
