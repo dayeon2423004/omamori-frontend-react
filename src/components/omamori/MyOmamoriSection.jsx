@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { omamoriList } from "../../api/omamori.api";
 import { useModal } from "../hooks/useModal";
 import { updateOmamori } from "../../api/omamori.api";
+import styles from "../../styles/MyOmamori.module.css";
+import ShareLayer from "./ShareLayer";
 
 export default function MyOmamoriSection() {
     const navigate = useNavigate();
@@ -15,11 +17,14 @@ export default function MyOmamoriSection() {
     // 오마모리 수 관리 
     const [omamoris, setOmamoris] = useState([]);
 
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
     useEffect(() => {
         (async () => {
         try {
             const response = await omamoriList();
             setOmamoris(response.data || []);
+            console.log(response.data);
         } catch (error) {
             console.error("목록을 불러오는 중 에러 발생:", error);
         }
@@ -44,58 +49,62 @@ export default function MyOmamoriSection() {
     };
 
     return (
-        <>
-        {/* 제작 이미지 */}
-        <div>
-            <img
-            src={IMAGES.grayOmamori}
-            onClick={() => openModal("omamori")}
-            alt="오마모리 생성"
-            style={{ cursor: "pointer" }}
-            />
-        </div>
+        <div className={styles.grid}>
+            {/* 제작 이미지 */}
+            <div 
+                className={`${styles.itemWrapper} ${styles.addButton}`} 
+                onClick={() => openModal("omamori")}>
+                <span className={styles.plusIcon}>+</span>
+            </div>
 
-        {/* 오마모리 목록 */}
-        <div>
-            {omamoris.length === 0 ? (
-            <p>아직 만든 오마모리가 없습니다. 오마모리를 생성해보세요!</p>
-            ) : (
-            <div>
-                {omamoris.map((omamori) => (
-                <div
-                    key={omamori.id}
-                    style={{ cursor: "pointer", marginBottom: "8px" }}
-                >
-                    {/* 수정을 클릭한 경우, 제목 */}
-                    {editingId === omamori.id ? (
-                    <form onSubmit={(e) => handleSubmit(e, omamori.id)}>
-                        <input
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        autoFocus
+            {/* 오마모리 목록 */}
+            {omamoris.map((omamori) => (
+                <div key={omamori.id} className={styles.itemWrapper}>
+
+                    {/* 이미지 합성 */}
+                    <div className={styles.omamoriCanvas} >
+                        <img 
+                            src={`${baseUrl}${omamori.frame.preview_url}`} 
+                            onClick={() => navigate(`/omamori/edit/${omamori.id}`)}
+                            className={styles.frameImg} 
+                            alt="frame" 
                         />
-                        <button type="submit">완료</button>
-                    </form>
-                    ) : (
-                    <div>
-                        {/* 제목 클릭 시 제목 수정 폼 */}
-                        <h3
-                            onClick={()=> navigate(`/omamori/edit/${omamori.id}`)}>{omamori.title}
-                        </h3>
-                        <p
-                        onClick={() => {
-                            setEditingId(omamori.id);
-                            setTitle(omamori.title);
-                        }}>
-                        수정
-                        </p>
-                  </div>
-                )}
-              </div>
+                        {/* {omamori.elements?.map(el => (
+                        <ShareLayer layer={el} baseUrl={baseUrl} />
+                        ))} */}
+                    </div>
+
+                        {/* 하단 정보(제목) */}
+                        {/* 제목 수정 */}
+                        <div className={styles.infoRow}>
+                        {editingId === omamori.id ? (
+                            <form onSubmit={(e) => handleSubmit(e, omamori.id)}>
+                                <input
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    autoFocus
+                                />
+                                <button type="submit">완료</button>
+                            </form>
+                        ) : (
+                            <div>
+                                {/* 제목 클릭 */}
+                                <h3
+                                    className={styles.titleText}
+                                    onClick={()=> navigate(`/omamori/edit/${omamori.id}`)}>{omamori.title}
+                                    <span className={styles.editBtn}
+                                        onClick={() => {
+                                            setEditingId(omamori.id);
+                                            setTitle(omamori.title);
+                                            }}>
+                                            ✏️
+                                    </span>
+                                </h3>
+                            </div>
+                        )}
+                    </div>
+                </div>
             ))}
-          </div>
-        )}
-      </div>
-    </>
-  );
+        </div>
+    );
 }
