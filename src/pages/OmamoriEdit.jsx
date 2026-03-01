@@ -138,8 +138,8 @@ export default function OmamoriEdit() {
             type: "stamp",
             url: preview_url,         
             asset_key: key,  
-            x: 30,
-            y: 30,
+            x: 300,
+            y: 300,
             rotation: 0,
             zIndex: layers.length
             }
@@ -302,8 +302,9 @@ export default function OmamoriEdit() {
     };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.mainContainer}>
         {/* 우측 상단 액션 버튼 */}
+        <div className={styles.leftSection}>
         <div className={styles.topActionGroup}>
             <button className={`${styles.actionBtn} ${styles.publishBtn}`} onClick={handlePublish}>최종저장</button>
             <button className={styles.actionBtn} onClick={handleShare}>공유</button>
@@ -317,11 +318,6 @@ export default function OmamoriEdit() {
         </header>
 
         <div className={styles.divider} />
-
-        {/* 캔버스 영역 */}
-        <div>
-            {<OmamoriCanvas omamoriId={id} layers={layers} setLayers={setLayers} baseUrl={baseUrl} selectedId={selectedId} setSelectedId={setSelectedId} changeFontSize={changeFontSize}/>}
-        </div>
 
         {/* {imageUrl ? (<img src={imageUrl} />) : (<p>X</p>)} */}
         
@@ -343,6 +339,12 @@ export default function OmamoriEdit() {
                     <p className={styles.messageText} onClick={() => {setEditContent(true);}}> {content} </p>
                 )}
             </form>
+        </div>
+        </div>
+
+        {/* 캔버스 영역 */}
+        <div className={styles.rightSection}>
+            {<OmamoriCanvas omamoriId={id} layers={layers} setLayers={setLayers} baseUrl={baseUrl} selectedId={selectedId} setSelectedId={setSelectedId} changeFontSize={changeFontSize}/>}
         </div>
 
         {/* 레이어 화면 */}
@@ -378,7 +380,7 @@ export default function OmamoriEdit() {
                         omamoriId={id}
                         // 각 타입에 따른 로직을 함수로 전달. 
                         onSelect={(item) => {
-                            if (item.type === "Stamp") addStamp(item.stamp_url, item.key);
+                            if (item.type === "Stamp") addStamp(item.preview_url ?? item.stamp_url, item.key);
                             if (item.type === "Frame") changeFrame(item.preview_url, item.id, item.frame_key);
                             setSelectionType(null); 
                         }} 
