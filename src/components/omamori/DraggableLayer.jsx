@@ -77,7 +77,7 @@ export default function DraggableLayer({ layer, baseUrl, handleDragStop, handleD
             <img
                 width={80}
                 height={80}
-                src={`${baseUrl}${layer.url}`}
+                src={`${layer.url}`}
                 className={styles.stampElement}
                 alt=""
             />

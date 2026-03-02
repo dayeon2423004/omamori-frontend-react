@@ -31,7 +31,7 @@ export default function BackMessageModal ({ omamoriData }) {
                 {/* 배경 프레임 이미지 */}
                 <img
                     className={styles.frameImage}
-                    src={`${baseUrl}${omamoriData.layer.url}`}
+                    src={`${omamoriData.layer.url}`}
                     alt="Frame"
                 />
 

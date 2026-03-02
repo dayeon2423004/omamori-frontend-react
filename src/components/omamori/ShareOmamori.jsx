@@ -15,7 +15,7 @@ export default function ShareOmamori({ omamori }) {
         {!isBack ? (
             <>
                 <img className={styles.frameImage}
-                    src={`${baseUrl}${omamoriList.frame.preview_url}`} 
+                    src={`${omamoriList.frame.preview_url}`} 
                     alt="" 
                 />
                 {omamoriList.elements.map(el => (
