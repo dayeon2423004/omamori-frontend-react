@@ -1,0 +1,110 @@
+/* src/styles/SharePage.css */
+
+.container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8f5ff 0%, #fdf7ff 50%, #f3f0ff 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bgCircle1 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background-color: rgba(168, 85, 247, 0.15);
+    border-radius: 50%;
+    filter: blur(80px);
+    top: 15%;
+    left: 20%;
+    z-index: 0;
+}
+
+.bgCircle2 {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background-color: rgba(236, 72, 153, 0.15);
+    border-radius: 50%;
+    filter: blur(80px);
+    bottom: 15%;
+    right: 20%;
+    z-index: 0;
+}
+
+.contentWrapper {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.line {
+    height: 3px;
+    width: 50px;
+    background: linear-gradient(to right, #a855f7, #ec4899);
+    margin: 0 auto 28px auto;
+    border-radius: 2px;
+}
+
+.title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #7c3aed, #db2777, #4f46e5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.03em;
+}
+
+.description {
+    color: #6b7280;
+    margin-top: 16px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.cardWrapper {
+    margin-top: 48px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 32px;
+    box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cardInner {
+    border: 2px dashed rgba(168, 85, 247, 0.2);
+    border-radius: 24px;
+    padding: 4px;
+}
+
+.submitButton {
+    margin-top: 48px;
+    padding: 18px 40px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #6366f1 100%);
+    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    outline: none;
+}
+
+.submitButton:hover {
+    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.5);
+    transform: translateY(-3px) scale(1.03);
+}
