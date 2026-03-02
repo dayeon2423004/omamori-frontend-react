@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fortuneColorList } from '../api/omamoriExpansion.api.js';
 import { useModal } from '../components/hooks/useModal.js';
-import '../styles/fortuneColorList.css';
+import '../styles/FortuneColorList.css';
 
 export default function FortuneListPage() {
     const [colors, setColors] = useState([]);
