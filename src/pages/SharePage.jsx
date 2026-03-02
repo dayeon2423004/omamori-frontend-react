@@ -28,12 +28,16 @@ export default function SharePage() {
             } catch (error) {
                 console.log(error);
             }
-
-            if (data) {
-                document.title = "🍀🍀🍀 행운의 오마모리 도착! 🍀🍀🍀";
-            }
         })();
-    }, [token, data]);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, [token]);
+
+    useEffect(() => {
+        if (data) {
+            document.title = "🍀 행운의 오마모리 도착!";
+        }
+    }, [data]);
 
     if (!data) return (
         <div className="container">
