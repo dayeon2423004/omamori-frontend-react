@@ -4,6 +4,7 @@ import { omamoriPublic } from "../api/omamoriExport.api";
 import ShareOmamori from "../components/omamori/ShareOmamori";
 import { motion } from "framer-motion";
 import Confetti from "react-confetti";
+import { Helmet } from "react-helmet-async";
 import "../styles/SharePage.css"; 
 
 export default function SharePage() {
@@ -39,6 +40,11 @@ export default function SharePage() {
 
     return (
         <div className="container">
+            <Helmet>
+                <title>🍀🍀🍀 행운의 오마모리 도착! 🍀🍀🍀</title>
+                <meta property="og:description" content="당신의 안녕을 바라는 소중한 마음입니다." />
+            </Helmet>
+
             {/* 배경 */}
             <div className="bgCircle1" />
             <div className="bgCircle2" />
