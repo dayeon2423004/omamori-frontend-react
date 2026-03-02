@@ -33,12 +33,6 @@ export default function SharePage() {
         return () => window.removeEventListener("resize", handleResize);
     }, [token]);
 
-    useEffect(() => {
-        if (data) {
-            document.title = "🍀 행운의 오마모리 도착!";
-        }
-    }, [data]);
-
     if (!data) return (
         <div className="container">
             <p className="description">불러오는 중입니다...</p>
