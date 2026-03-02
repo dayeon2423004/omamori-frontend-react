@@ -97,7 +97,7 @@ export default function OmamoriCanvas({ omamoriId, layers, setLayers, baseUrl, s
           return (
             <img
                 key={layer.id} 
-                src={`${baseUrl}${layer.url}`}
+                src={`${layer.url}`}
                 style={{ 
                   position: "absolute", 
                   top: 0, 

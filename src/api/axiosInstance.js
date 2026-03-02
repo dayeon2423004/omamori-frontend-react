@@ -2,7 +2,7 @@ import axios from "axios";
 
 // axios 객체 생성 (기본url, 시간 제한, 헤더, 로컬스토리지)
 const axiosIns = axios.create({
-    baseURL : "http://127.0.0.1:8080/api/v1/",
+    baseURL : "https://omamori-backend-laravel.onrender.com/api/v1",
     timeout : 5000,
     headers : {
         "Content-Type": "application/json",

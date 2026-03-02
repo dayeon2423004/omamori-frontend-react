@@ -64,7 +64,7 @@ export default function MyOmamoriSection() {
                     {/* 이미지 합성 */}
                     <div className={styles.omamoriCanvas} >
                         <img 
-                            src={`${baseUrl}${omamori.frame.preview_url}`} 
+                            src={`${omamori.frame.preview_url}`} 
                             onClick={() => navigate(`/omamori/edit/${omamori.id}`)}
                             className={styles.frameImg} 
                             alt="frame" 

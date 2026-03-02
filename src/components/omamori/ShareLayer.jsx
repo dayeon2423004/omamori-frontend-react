@@ -25,7 +25,7 @@ export default function ShareLayer({ layer, baseUrl }) {
         {layer.type === "stamp" && (
             <img
                 width={50 * scale}
-                src={`${baseUrl}${layer.props.url}`}
+                src={`${layer.props.url}`}
                 alt="stamp"
             />
         )}

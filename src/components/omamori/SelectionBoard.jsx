@@ -15,12 +15,10 @@ export default function SelectionBoard({ type, onSelect }) {
         if (type === "Stamp") {
             response = await stamps(); 
             const normalized = response.data.data.map(item => {
-                const fullUrlFromServer = item.url;
-                const pathOnly = new URL(fullUrlFromServer).pathname; // http://localhost 삭제
                 return {
                     id : item.asset_key,
                     name : item.file_name,
-                    preview_url : pathOnly,
+                    preview_url : item.url,
                     key : item.asset_key
                 };
             });
@@ -45,7 +43,7 @@ export default function SelectionBoard({ type, onSelect }) {
           onClick={() => onSelect({ ...item, type })}
           style={{ cursor: "pointer", padding: '4px' }}
         >
-          {item.preview_url ? <img src={`${baseUrl}${item.preview_url}`} alt={item.name} style={{ width: 80, height: 80 }} crossOrigin="anonymous" /> : "X"}
+          {item.preview_url ? <img src={`${item.preview_url}`} alt={item.name} style={{ width: 80, height: 80 }} crossOrigin="anonymous" /> : "X"}
           <span>{item.name}</span>
         </div>
       ))}
