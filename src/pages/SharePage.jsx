@@ -60,7 +60,6 @@ export default function SharePage() {
             )}
             
             <div className="contentWrapper">
-                {console.log("되나")}
                 {/* 상단 텍스트 영역 */}
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }} 
